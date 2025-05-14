@@ -4,12 +4,10 @@ render_mode unshaded;
 uniform float shift_hue;
 
 void fragment() {
-// Input:3
 	vec3 input_color;
 	vec4 texture_color = texture(TEXTURE, UV);
 	input_color = texture_color.rgb;
 
-// VectorFunc:2
 	vec3 color_hsv;
 	{
 		vec3 c = input_color;
@@ -23,7 +21,6 @@ void fragment() {
 
 	color_hsv.x = mod((color_hsv.x + shift_hue), 1.0f);
 
-// VectorFunc:5
 	vec3 color_rgb;
 	{
 		vec3 c = color_hsv;
@@ -32,8 +29,6 @@ void fragment() {
 		color_rgb=c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 	}
 
-// Output:0
 	texture_color = vec4(color_rgb.rgb,texture_color.a);
 	COLOR.rgba = texture_color;
-
 }
